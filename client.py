@@ -10,15 +10,14 @@ s=socket(AF_INET, SOCK_STREAM)      # Creates a socket
  
 s.connect((host,port))          # Connect to server address
 
-while(1): 
-    msg=s.recv(1024)            # Receives data upto 1024 bytes and stores in variables msg
- 
-    print "Message from server : " + msg
+while(1):
+	data=raw_input("Enter Your Choice 1 for 7up , 2 for 7 and 3 for 7 down:  ")
+	s.send(data)
+	amount = s.recv(3)
+	print amount
 
-    data=raw_input("Enter data to be send:  ")  # Data to be send is stored in variable data from
-                                           # user
  
-    s.send(data)  
+    
  
 s.close()                            # Closes the socket
 # End of code
