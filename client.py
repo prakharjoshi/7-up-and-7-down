@@ -1,25 +1,30 @@
 # TCP Client Code
+import Tkinter
+host="127.0.0.1"            
  
-host="127.0.0.1"            # Set the server address to variable host
+port=4446               
  
-port=4446               # Sets the variable port to 4446
+from socket import *             
  
-from socket import *             # Imports socket module
+s=socket(AF_INET, SOCK_STREAM)      
  
-s=socket(AF_INET, SOCK_STREAM)      # Creates a socket
- 
-s.connect((host,port))          # Connect to server address
+s.connect((host,port)) 
+
+
+
+# Code to add widgets will go here...
+
 
 while(1):
+	next_bid=raw_input("How much You wanna bid, You have 100 rupees initially: ")
 	data=raw_input("Enter Your Choice 1 for 7up , 2 for 7 and 3 for 7 down:  ")
+	s.send(next_bid)
 	s.send(data)
-	amount = s.recv(3)
+	amount = s.recv(4)
 	print amount
 
- 
-    
- 
-s.close()                            # Closes the socket
-# End of code
+s.close() 
+
+                         
 
 

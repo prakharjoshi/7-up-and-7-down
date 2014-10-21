@@ -18,43 +18,26 @@ s.listen(1)
 print "Listening for connections.. "
  
 q,addr=s.accept()              
-count = 100                                           
+count = 100 
+final_count = 100               
 while(count > 0):
 	a = random.randint(1,13)
 	print a
+	bid = q.recv(3)
+	money = int(bid)
+	diff = final_count - money
 	msg = q.recv(1024)
-	print msg
 	if msg == '3' and a < 7:
-		count = count + 10
+		money = money + 10
 	elif msg == '2' and a == 7:
-		count = count + 20
+		money = money + 20
 	elif msg == '1' and a > 7:
-		count = count + 10
+		money = money + 10
 	else:
-		count = count - 10
+		money = money - 10
 	
-	"""if (msg == 1):
-		if (a > 7):
-			count = count + 10
-		else:
-			count = count - 10
-	elif (msg == 2):
-		if(a == 7):
-			count = count + 20
-		else:
-			count = count - 10
-	elif (msg == 3):
-		if(a < 7):
-			count = count + 10
-		else:
-			count = count - 10"""
-
-
-	
-
-		 
-
-	amount = str(count)
+	final_count = diff + money
+	amount = str(final_count)
 	q.send(amount)
 	                      
  
