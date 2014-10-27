@@ -93,9 +93,9 @@ class Application(Frame):
         s.send(choice)
         
         res = s.recv(3)
-        if res > '0' and res != "":
+        if res > '0' and res != "ohh":
             result_msg = "You have " + str(res) + " amount left."
-        elif res == "" and res > '0':
+        elif res == "ohh":
             result_msg = "You entered wrong choice"
         else:
             result_msg = "You Lost all your Money!! :("
@@ -120,4 +120,3 @@ root.title("7 Up and 7 Down")
 root.geometry("900x600")
 app = Application(root)
 root.mainloop()
-s.close()

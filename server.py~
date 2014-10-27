@@ -17,14 +17,15 @@ CONNECTION_LIST.append(s)
 
 def clientthread(q):
 #infinite loop so that function do not terminate and thread do not end.
+     while True:
         count = 100
         final_count = 100
         while(count > 0):
             a = random.randint(1,13)
             bid = q.recv(3)
             money = int(bid)
+            print money
             diff = final_count - money
-            print diff
             msg = q.recv(1)
             choice  = int(msg)
             if msg == '3' and a<7:
@@ -34,13 +35,12 @@ def clientthread(q):
             elif msg == '1' and a>7:
                 money = 2*money
             else:
-                money = 000
+                money = 0
             final_count = diff + money
             if choice in range(1,4):
                 amount = str(final_count)
             else:
-                amount = ""
-            print amount
+                amount = "ohh"
             q.send(amount)
             b = str(a)
             q.send(b)
