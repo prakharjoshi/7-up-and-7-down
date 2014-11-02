@@ -1,6 +1,6 @@
 host="0.0.0.0"            
  
-port=4446              
+port=4446             
  
 from socket import *             
  
@@ -93,9 +93,10 @@ class Application(Frame):
         s.send(choice)
         
         res = s.recv(3)
-        if res > '0' and res != "":
+        res = int(res)
+        if res > 0 and res != "":
             result_msg = "You have " + str(res) + " amount left."
-        elif res == "" and res > '0':
+        elif res == 001:
             result_msg = "You entered wrong choice"
         else:
             result_msg = "You Lost all your Money!! :("
