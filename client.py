@@ -1,12 +1,15 @@
 host="0.0.0.0"            
  
-port=4446             
+port=4447             
  
 from socket import *             
  
 s=socket(AF_INET, SOCK_STREAM)      
 address = (host,port) 
 s.connect(address) 
+test = s.recv(1)
+tet = int(test)
+
 
 from Tkinter import *
 class Application(Frame):
@@ -94,13 +97,15 @@ class Application(Frame):
         
         res = s.recv(3)
         res = int(res)
-        if res > 0 and res != "":
+        print res
+        if res > 0 and res != " ":
             result_msg = "You have " + str(res) + " amount left."
         elif res == 001:
             result_msg = "You entered wrong choice"
         else:
             result_msg = "You Lost all your Money!! :("
-        card = s.recv(1)
+        card = s.recv(2)
+        print card
         card_msg = "Card number comes is " + str(card)
         # Display
         self.display1_txt.delete(0.0, END)
@@ -116,9 +121,10 @@ class Application(Frame):
         
     
 # Main manager
-root = Tk()
-root.title("7 Up and 7 Down")
-root.geometry("900x600")
-app = Application(root)
-root.mainloop()
-s.close()
+if(tet == 1):
+    root = Tk()
+    root.title("7 Up and 7 Down")
+    root.geometry("900x600")
+    app = Application(root)
+    root.mainloop()
+    s.close()

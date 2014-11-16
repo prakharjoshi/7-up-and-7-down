@@ -2,17 +2,16 @@
 from socket import *
 from thread import *
 host=""                
-port=4446              
+port=4447             
 from socket import *  
-import random              
+import random  
+from Tkinter import *            
 
-#CONNECTION_LIST = []
-#RECV_BUFFER = 4096
 s=socket(AF_INET, SOCK_STREAM)
 address = (host,port)
 s.bind(address)         
 s.listen(5)
-#CONNECTION_LIST.append(s)
+
 
 
 def clientthread(q):
@@ -40,22 +39,43 @@ def clientthread(q):
                 amount = str(final_count)
             else:
                 amount = "001"
+            #print amount
+            length = len(amount)
+            if length == 1:
+                amount = '00' + amount 
+            if length == 2:
+                amount = '0' + amount
             print amount
             q.send(amount)
             b = str(a)
-            print a
+            card_length = len(b)
+            if card_length == 1:
+                b = '0' + b
             q.send(b)
-            #print "the final amount of player " + str(q) + " " + "is" + " " + amount
-            #count = final_count
-
+            
      		
 
 while True:
     q,addr = s.accept()
-    temp = 0
-    msg = str(addr) + " wants to play your game. 1 for yes and 2 for no"
-    a = input(msg)
-    if a == 1:
+    #temp = 0
+    #root = Tk()
+    #root.title("Client authentication")
+    #root.geometry("150x200")
+    #root.play_lbl = Label(root, text = 'str(addr) + " wants to play your game. 1 for yes and 2 for no: "')
+    #root.play_lbl.grid(row = 1, column = 0, sticky = W)
+    #root.play_ent = Entry(root)
+    #root.play_ent.grid(row = 1, column = 1, sticky = W)
+    
+    #root.submit_bttn = Button(root, text = "accept", command = root.play_ent.get())
+    #root.submit_bttn.grid(row = 2, column = 0, sticky = W)
+    #a = root.play_ent.get()
+    #print()
+    option = input('str(addr) + " wants to play your game. 1 for yes and 2 for no: "')   
+    q.send(str(option))
+    #root.mainloop()
+    #root.quit()
+    #root.quit()
+    if option == 1:
         start_new_thread(clientthread,(q,))
 s.close()
 q.close()
